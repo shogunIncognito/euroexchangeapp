@@ -4,11 +4,13 @@ import { ref, computed } from 'vue'
 const rateSelected = ref('USD')
 const amount = ref(5)
 const exchange = ref(null)
+const loading = ref(true)
 
 fetch(`http://data.fixer.io/api/latest?access_key=b2d1a26d1115b3949641c7d42a322403`)
   .then(res => res.json())
   .then(json => exchange.value = json)
   .catch(err => console.log(err))
+  .finally(() => loading.value = false)
 
 const rates = computed(() => {
   if (!exchange.value) return null
@@ -24,7 +26,12 @@ const rateCalculated = computed(() => {
 
 <template>
   <main className='bg-slate-200 flex justify-center items-center pb-32 w-full h-screen'>
-    <section className='flex gap-3 mx-5 flex-col bg-slate-100 shadow-lg p-4 justify-center rounded-md'>
+    <div v-if="loading" class="flex gap-2">
+      <div class="bg-black p-3 duration-75 rounded-full animate-pulse"></div>
+      <div class="bg-black p-3 duration-75 rounded-full animate-pulse"></div>
+      <div class="bg-black p-3 duration-75 rounded-full animate-pulse"></div>
+    </div>
+    <section v-else className='flex gap-3 mx-5 flex-col bg-slate-100 shadow-lg p-4 justify-center rounded-md'>
       <header className='flex gap-2 items-center text-lg justify-center'>
         $
         <input v-model="amount" type='number'
