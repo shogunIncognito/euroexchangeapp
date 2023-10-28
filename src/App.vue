@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import Spinner from './components/Spinner.vue'
 
 const rateSelected = ref('USD')
 const amount = ref(5)
@@ -26,11 +27,7 @@ const rateCalculated = computed(() => {
 
 <template>
   <main className='bg-slate-200 flex justify-center items-center pb-32 w-full h-screen'>
-    <div v-if="loading" class="flex gap-2">
-      <div class="bg-black p-3 duration-75 rounded-full animate-pulse"></div>
-      <div class="bg-black p-3 duration-75 rounded-full animate-pulse"></div>
-      <div class="bg-black p-3 duration-75 rounded-full animate-pulse"></div>
-    </div>
+    <Spinner v-if="loading" />
     <section v-else className='flex gap-3 mx-5 flex-col bg-slate-100 shadow-lg p-4 justify-center rounded-md'>
       <header className='flex gap-2 items-center text-lg justify-center'>
         $
