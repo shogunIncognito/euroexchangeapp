@@ -2,9 +2,6 @@
 import { ref, computed, onMounted } from 'vue'
 import Spinner from './components/Spinner.vue'
 
-const rateSelected = ref('USD')
-const amount = ref(5)
-const exchange = ref(null)
 const loading = ref(false)
 
 const exchangeState = ref({
